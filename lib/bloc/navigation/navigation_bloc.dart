@@ -3,7 +3,7 @@ import 'navigation_event.dart';
 import 'navigation_state.dart';
 
 class NavigationBloc extends Bloc<NavigationEvent, NavigationState> {
-  NavigationBloc() : super(NavigationState(2)) {
+  NavigationBloc() : super(NavigationState(0)) {
     on<NavigateToPage>((event, emit) {
       emit(NavigationState(event.index));
     });

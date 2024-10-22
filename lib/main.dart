@@ -1,4 +1,5 @@
 import 'package:calculator_flutter/bloc/navigation/navigation_bloc.dart';
+import 'package:calculator_flutter/bloc/webview/webview_bloc.dart';
 import 'package:calculator_flutter/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,6 +21,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider<NavigationBloc>(
           create: (context) => NavigationBloc(),
+        ),
+        BlocProvider<WebViewBloc>(
+          create: (context) => WebViewBloc(),
         ),
       ],
       child: MaterialApp(
