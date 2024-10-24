@@ -2,6 +2,7 @@ import 'package:calculator_flutter/bloc/navigation/navigation_bloc.dart';
 import 'package:calculator_flutter/bloc/navigation/navigation_event.dart';
 import 'package:calculator_flutter/bloc/navigation/navigation_state.dart';
 import 'package:calculator_flutter/calculator_screen.dart';
+import 'package:calculator_flutter/carousel_widget.dart';
 import 'package:calculator_flutter/custom_bottom_navigation_bar.dart';
 import 'package:calculator_flutter/menu_screen.dart';
 import 'package:calculator_flutter/webview_screen.dart';
@@ -13,7 +14,7 @@ class HomeScreen extends StatelessWidget {
 
   final List<Widget> _pages = [
     const CalculatorScreen(),
-    const Center(child: Text('Square Page')),
+    const CarouselWidget(),
     const TradingViewWidget(),
     const Center(child: Text('Discover Page')),
     const Center(child: Text('Portfolio Page')),

@@ -6,7 +6,7 @@ class WebViewBloc extends Bloc<WebViewEvent, WebViewState> {
   WebViewBloc() : super(WebViewInitial()) {
     on<LoadWebView>((event, emit) async {
       emit(WebViewLoading());
-      await Future.delayed(Duration(seconds: 2));
+      await Future.delayed(const Duration(seconds: 2));
       emit(WebViewLoaded());
     });
   }
