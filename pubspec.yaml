@@ -38,6 +38,7 @@ dependencies:
   webview_flutter: 4.9.0
   intl: ^0.17.0
   equatable: ^2.0.5
+  logger: ^2.4.0
 
 dev_dependencies:
   flutter_test:
