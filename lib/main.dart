@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:ui';
 import 'package:calculator_flutter/bloc/carousel/carousel_bloc.dart';
 import 'package:calculator_flutter/bloc/navigation/navigation_bloc.dart';
 import 'package:calculator_flutter/bloc/screenshot/screenshot_bloc.dart';
@@ -25,7 +26,6 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   late ScreenshotBloc _screenshotBloc;
   final GlobalKey _boundaryKey = GlobalKey();
-  bool _showMask = false;
 
   @override
   void initState() {
@@ -41,49 +41,20 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     super.dispose();
   }
 
-  // @override
-  // void didChangeAppLifecycleState(AppLifecycleState state) {
-  //   if (state == AppLifecycleState.paused) {
-  //     _screenshotBloc.add(CaptureScreenshot());
-  //   } else if (state == AppLifecycleState.resumed) {
-  //     _screenshotBloc.add(ShowScreenshot());
-  //     Timer(const Duration(seconds: 4), () {
-  //       _screenshotBloc.add(HideScreenshot());
-  //     });
-  //   }
-  // }
-
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.paused) {
-      setState(() {
-        _showMask = true;
-      });
+      _screenshotBloc.add(ShowMask());
       _screenshotBloc.add(CaptureScreenshot());
     } else if (state == AppLifecycleState.resumed) {
+      _screenshotBloc.add(ShowMask());
       _screenshotBloc.add(ShowScreenshot());
       Timer(const Duration(seconds: 4), () {
         _screenshotBloc.add(HideScreenshot());
-        setState(() {
-          _showMask = true;
-        });
+        _screenshotBloc.add(HideMask());
       });
     }
   }
-
-//   @override
-// void didChangeAppLifecycleState(AppLifecycleState state) {
-//   if (state == AppLifecycleState.paused) {
-//     _screenshotBloc.add(ShowMask()); // Показать маску
-//     _screenshotBloc.add(CaptureScreenshot());
-//   } else if (state == AppLifecycleState.resumed) {
-//     _screenshotBloc.add(ShowScreenshot());
-//     Timer(const Duration(seconds: 4), () {
-//       _screenshotBloc.add(HideScreenshot());
-//       _screenshotBloc.add(HideMask()); // Скрыть маску
-//     });
-//   }
-// }
 
   @override
   Widget build(BuildContext context) {
@@ -108,40 +79,37 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
           create: (context) => TableBloc(),
         ),
       ],
-      child: MaterialApp(
-        home: BlocBuilder<ScreenshotBloc, ScreenshotState>(
-          builder: (context, state) {
-            if (state is ScreenshotDisplayed) {
-              return Scaffold(
-                body: RepaintBoundary(
-                  key: _boundaryKey,
-                  child: Stack(
-                    children: [
-                      RawImage(image: state.image),
-                      if (_showMask)
-                        Positioned(
-                          top: 400,
-                          left: 20,
-                          child: Container(
-                            width: 350,
-                            height: 350,
-                            color: Colors.black,
+      child: MaterialApp(home: BlocBuilder<ScreenshotBloc, ScreenshotState>(
+        builder: (context, state) {
+          return Scaffold(
+            body: RepaintBoundary(
+              key: _boundaryKey,
+              child: Stack(
+                children: [
+                  HomeScreen(),
+                  if (state is ScreenshotDisplayed)
+                    RawImage(image: state.image),
+                  if (state is MaskVisibleState)
+                    Positioned(
+                      top: 400,
+                      left: 20,
+                      child: BackdropFilter(
+                        filter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
+                        child: Container(
+                          width: 350,
+                          height: 350,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
                           ),
                         ),
-                    ],
-                  ),
-                ),
-              );
-            }
-            return Scaffold(
-              body: RepaintBoundary(
-                key: _boundaryKey,
-                child: HomeScreen(),
+                      ),
+                    ),
+                ],
               ),
-            );
-          },
-        ),
-      ),
+            ),
+          );
+        },
+      )),
     );
   }
 }

@@ -41,12 +41,10 @@ class ScreenshotBloc extends Bloc<ScreenshotEvent, ScreenshotState> {
   }
 
   void _onShowMask(ShowMask event, Emitter<ScreenshotState> emit) {
-    print('ShowMask event received');
     emit(MaskVisibleState());
   }
 
   void _onHideMask(HideMask event, Emitter<ScreenshotState> emit) {
-    print('HideMask event received');
     emit(ScreenshotInitial());
   }
 }
