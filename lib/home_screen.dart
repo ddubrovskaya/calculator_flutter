@@ -13,8 +13,8 @@ class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
 
   final List<Widget> _pages = [
-    const CalculatorScreen(),
     const CarouselWidget(),
+    const CalculatorScreen(),
     const TradingViewWidget(),
     const Center(child: Text('Discover Page')),
     const Center(child: Text('Portfolio Page')),
@@ -26,6 +26,7 @@ class HomeScreen extends StatelessWidget {
       builder: (context, state) {
         return Scaffold(
           appBar: AppBar(
+            backgroundColor: Colors.white,
             leading: IconButton(
               icon: Image.asset('assets/icons/menu.png'),
               onPressed: () {

@@ -1,4 +1,6 @@
+import 'package:calculator_flutter/bloc/carousel/carousel_bloc.dart';
 import 'package:calculator_flutter/bloc/navigation/navigation_bloc.dart';
+import 'package:calculator_flutter/bloc/table/table.bloc.dart';
 import 'package:calculator_flutter/bloc/webview/webview_bloc.dart';
 import 'package:calculator_flutter/home_screen.dart';
 import 'package:flutter/material.dart';
@@ -24,6 +26,12 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider<WebViewBloc>(
           create: (context) => WebViewBloc(),
+        ),
+        BlocProvider<CarouselBloc>(
+          create: (context) => CarouselBloc(),
+        ),
+        BlocProvider<TableBloc>(
+          create: (context) => TableBloc(),
         ),
       ],
       child: MaterialApp(
