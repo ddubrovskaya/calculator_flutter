@@ -43,7 +43,9 @@ class _LifecycleAwareHomeState extends State<LifecycleAwareHome>
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        HomeScreen(),
+        HomeScreen(
+          pageIndex: 0,
+        ),
         if (_appVisibility == AppVisibility.background)
           Container(
             color: Colors.white,
