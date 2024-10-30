@@ -5,13 +5,20 @@ import 'package:calculator_flutter/bloc/webview/webview_bloc.dart';
 import 'package:calculator_flutter/detail_page.dart';
 import 'package:calculator_flutter/home_screen.dart';
 import 'package:calculator_flutter/lifecycle_aware_home.dart';
+import 'package:calculator_flutter/my_story_book.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'bloc/calculator/calculator_bloc.dart';
 
 void main() {
-  runApp(const MyApp());
+  const bool useStorybook = false;
+
+  if (useStorybook) {
+    runApp(MyStorybook());
+  } else {
+    runApp(const MyApp());
+  }
 }
 
 final GoRouter _router = GoRouter(
