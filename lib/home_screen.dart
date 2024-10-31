@@ -10,8 +10,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomeScreen extends StatelessWidget {
-  HomeScreen({super.key});
-
   final List<Widget> _pages = [
     const CarouselWidget(),
     const CalculatorScreen(),
@@ -19,6 +17,10 @@ class HomeScreen extends StatelessWidget {
     const Center(child: Text('Discover Page')),
     const Center(child: Text('Portfolio Page')),
   ];
+
+  final int pageIndex;
+
+  HomeScreen({super.key, required this.pageIndex});
 
   @override
   Widget build(BuildContext context) {

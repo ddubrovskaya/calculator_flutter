@@ -4,10 +4,10 @@ import 'package:calculator_flutter/bloc/html/html_event.dart';
 import 'package:calculator_flutter/bloc/html/html_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:calculator_flutter/bloc/webview/webview_bloc.dart';
 import 'package:calculator_flutter/bloc/webview/webview_event.dart';
-// import 'package:calculator_flutter/bloc/webview/webview_state.dart';
 
 class TradingViewWidget extends StatelessWidget {
   const TradingViewWidget({super.key});
@@ -61,6 +61,13 @@ class TradingViewWidget extends StatelessWidget {
                   Expanded(
                     child: WebViewWidget(
                       controller: controller,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: ElevatedButton(
+                      onPressed: () => context.go('/detailscreen'),
+                      child: const Text('More Details'),
                     ),
                   ),
                 ],
